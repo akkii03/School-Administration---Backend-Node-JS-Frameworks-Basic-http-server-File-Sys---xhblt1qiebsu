@@ -45,32 +45,40 @@ app.post('/api/student', (req, res) => {
 
 app.put('/api/student/:id', (req, res) => {
     const isPresent = data.find((item) => item.id == req.params.id);
-    if (isPresent) {
+
+    if(isPresent) {
         if(!req.body) {
             res.status(400);
         }else{
             const {name,currentClass,division} = req.body;
-            data.map((item) => {
-            if (item.id == req.params.id) {
+           data.map((item=>{
+            if(item.id==req.params.id) {
                 if(name) {
-                    data.name = name
-                }else if(currentClass) {
-                 data.currentClass = currentClass
+                    data.name = name;
                 }
-                
+                else if(currentClass) {
+                    data.currentClass = currentClass;
+                }
                 else if(division) {
-                data.division = division
+                    data.division = division;
                 }
-                 res.status(200).send({name:input.name});
+                res.send(data);
+            }
+           }))
+            
         }
         
-               
-            } 
-        })
-    } else {
-        res.status(400).send();
+        
     }
-
+    else{
+        res.status(400);
+    }
+   
+        
+               
+            
+        
+        
 })
 
 app.delete('/api/student/:id', (req, res) => {
